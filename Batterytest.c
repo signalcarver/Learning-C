@@ -13,8 +13,12 @@ int main() {
         scanf("%lf", &consumption);
 
     // Calculation for result (the *500 is assuming the battery size adjust to right size)
+if (consumption == 0) {
+        printf("Error: Invalid Consimption\n");
 
-    runtime = (battery / 100.0) * 500 / consumption;
+        return 1;
+    
+runtime = (battery / 100.0) * 500 / consumption;
     
     // The Result for the use  
         printf("runtime: %.2lf Hours\n", runtime);
@@ -32,4 +36,5 @@ int main() {
 
         return 0;
 }
+
 
