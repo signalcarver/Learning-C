@@ -1,57 +1,65 @@
 #include <stdio.h>
 
-void check_battery(double battery) {
-     
-    if (battery > 75)
+int check_battery(double battery) {
+    if (battery > 75) {
         printf("Battery: Optimal\n");
-    else if (battery > 30)
+        return 0;
+    } else if (battery > 30) {
         printf("Battery: Normal\n");
-    else
+        return 0;
+    } else {
         printf("Battery: Warning\n");
+        return 1;
+    }
 }
 
-void check_temperature(double temp) {
-     if (temp > 80)
-        printf("Temperature: WARNING!!OVERHEATING\n");
-    else if (temp <= 80)
+int check_temperature(double temp) {
+    if (temp > 80) {
+        printf("Temperature: WARNING: Overheating\n");
+        return 1;
+    } else if (temp >= 50) {
         printf("Temperature: Normal\n");
-    else
+        return 0;
+    } else {
         printf("Temperature: Optimal\n");
+        return 0;
+    }
 }
 
-void check_motor(double speed) {
-     if (speed > 3000)
+int check_motor(double speed) {
+    if (speed > 3000) {
         printf("Motor Speed: Normal\n");
-    else
+        return 0;
+    } else {
         printf("Motor Speed: Warning\n");
+        return 1;
+    }
 }
 
 int main() {
     double battery, temperature, speed;
-// ask for input with printf and scanf for each variable
-    printf("What is the current battery percent?\n");
+
+    printf("=== Robot Diagnostic System ===\n");
+    printf("Enter battery %%: ");
     scanf("%lf", &battery);
 
-    printf("What is the current temperature?\n");
+    printf("Enter temperature (C): ");
     scanf("%lf", &temperature);
 
-    printf("What is the current motor speed?\n");
+    printf("Enter motor speed (RPM): ");
     scanf("%lf", &speed);
-    
-    
-    
+
     printf("\n=== Diagnostic Report ===\n");
-    printf("\nThe current motor speed is: %.2lf/RPM.\n", speed);
-    printf("\nThe current battery health is currently: %lf\n", battery);
-    printf("\nThe current temperature is:%.2lf°C\n", temperature);
-    // call three functions here
-    check_battery(battery);
-    check_temperature(temperature);
-    check_motor(speed);
-    // print Overall PASS or FAIL
+
+    int warning = 0;
+    warning += check_battery(battery);
+    warning += check_temperature(temperature);
+    warning += check_motor(speed);
+
+    if (warning > 0)
+        printf("Overall: FAIL\n");
+    else
+        printf("Overall: PASS\n");
 
     return 0;
 }
-
-
-
